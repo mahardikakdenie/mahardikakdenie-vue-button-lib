@@ -1,19 +1,20 @@
 {
   "name": "mahardikakdenie-vue-button",
-  "version": "0.0.4",
+  "version": "1.0.0",
   "private": false,
-  "files": [
-    "dist"
-  ],
   "main": "./dist/umd.js",
   "module": "./dist/es.js",
   "exports": {
     ".": {
       "import": "./dist/es.js",
-      "require": "./dist/umd.js"
+      "require": "./dist/umd.cjs"
     },
     "./dist/style.css": "./dist/style.css"
   },
+  "type": "module",
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "dev": "vite",
     "build": "vite build",
