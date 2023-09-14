@@ -1,7 +1,9 @@
 {
   "name": "mahardikakdenie-vue-button",
-  "version": "1.0.0",
+  "version": "1.6.0",
   "private": false,
+  "description": "vue button",
+  "author": "Mahardikakdenie <dikamahar884@gmail.com>",
   "main": "./dist/umd.js",
   "module": "./dist/es.js",
   "exports": {

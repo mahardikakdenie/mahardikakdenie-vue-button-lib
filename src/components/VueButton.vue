@@ -1,22 +1,37 @@
 <template>
-  <div>
-    <button class="lv-button">
-      <slot> this is button </slot>
-    </button>
-  </div>
+<button 
+    :class="btnClass"
+    @click="onClick"
+>
+    <slot> 
+        this is button 
+    </slot>
+</button>
 </template>
 
 <script>
 export default {
-  name: 'VueButton'
+    name: 'VueButton',
+    props: {
+        btnClass: {
+            type: String,
+            default: 'vue-button'
+        }
+    },
+    methods: {
+        onClick() {
+            this.$emit('on-click');
+        },
+    },
 }
 </script>
 
 <style scoped>
-.lv-button {
-  background: #43b883;
-  color: white;
-  outline: none;
-  border: none;
+.vue-button {
+    background: #43b883;
+    color: white;
+    outline: none;
+    border: none;
+    cursor: pointer;
 }
 </style>
