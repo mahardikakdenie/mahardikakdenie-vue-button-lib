@@ -21,6 +21,7 @@ app.use(VueButton);
 ```
 
 **Local**
+```vue
 <script>    
 import VueButton from 'mahardikakdenie-vue-button'
 import '@vuepic/vue-datepicker/dist/main.css';
@@ -28,4 +29,5 @@ import '@vuepic/vue-datepicker/dist/main.css';
 export default {
     components: { VueButton }
 }
+```
 </script>
