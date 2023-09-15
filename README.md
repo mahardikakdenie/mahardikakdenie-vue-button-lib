@@ -1,41 +1,31 @@
-# Vue Button Lib
+## Vue Button Lib
 
-This template should help get you started developing with Vue 3 in Vite.
+## Features
+- Button default
+- link button, router-link
 
-## Recommended IDE Setup
-
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vitejs.dev/config/).
-
-## Project Setup
-
-```sh
-npm install
+```shell
+npm i mahardikakdenie-vue-button
 ```
 
-### Compile and Hot-Reload for Development
+Import and register component
 
-```sh
-npm run dev
+**Global**
+
+```js
+import { createApp } from 'vue';
+import App from './App.vue';
+import VueButton from 'mahardikakdenie-vue-button'
+const app = createApp(App);
+app.use(VueButton);
 ```
 
-### Compile and Minify for Production
+**Local**
+<script>    
+import VueButton from 'mahardikakdenie-vue-button'
+import '@vuepic/vue-datepicker/dist/main.css';
 
-```sh
-npm run build
-```
-
-### Run Unit Tests with [Vitest](https://vitest.dev/)
-
-```sh
-npm run test:unit
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
-```
+export default {
+    components: { VueButton }
+}
+</script>
