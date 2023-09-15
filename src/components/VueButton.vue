@@ -1,6 +1,6 @@
 <template>
 <button
-    v-if="!isDiv && !isLink"
+    v-if="isButtonDefault"
     :class="[btnClass, {
         'pointer-events-none': isLoading,
         'btn-disabled': isDisabled,
@@ -10,27 +10,68 @@
     v-bind="$attrs"
     @click="onClick"
 >
-    <template v-if="!isLoading && !$slor.default">
-        <span 
-            v-if="icon"
-            class="btn-text">
-            <span :class="[iconClass, {
-                'icon-position-right': iconPositionRight,
-                'icon-position-left': iconPositionRight && text
-            }]">
-                <icon :icon="icon" />
-            </span>
+    <template v-if="isContentAvailable">
+        <btn-icon 
+            v-if="icon" 
+            :isIconPositionLeft="iconPositionLeft"
+            :isIconPositionRight="iconPositionRight"
+            :text="text"
+            :icon="icon"
+            :iconClass="iconClass"
+        />
+        <span v-if="!icon && text">
+            {{ text }}
         </span>
     </template>
+    <template v-if="isLoading">
+        <btn-loading :loadingClass="loadingClass" />
+        Loading ...
+    </template>
+    <div v-if="hasContentAndNotLoading">
+        <slot />
+    </div>
 </button>
+
+<router-link 
+    v-if="isLinkEnabled"
+    :to="link"
+    :class="[btnClass, {
+        'pointer-events-none': isLoading,
+        'btn-disabled': isDisabled,
+    }]"
+    class="btn-default"
+>
+    <template v-if="isContentAvailable">
+        <btn-icon 
+            v-if="icon" 
+            :isIconPositionLeft="iconPositionLeft"
+            :isIconPositionRight="iconPositionRight"
+            :text="text"
+            :icon="icon"
+            :iconClass="iconClass"
+        />
+        <span v-else-if="text && !icon">
+            {{ text }}
+        </span>
+    </template>
+    <template v-if="isLoading">
+        <btn-loading :loadingClass="loadingClass" />
+        Loading ...
+    </template>
+    <div v-if="hasContentAndNotLoading">
+        <slot />
+    </div>
+</router-link>
 </template>
 
 <script>
-import Icon from '@/components/Icon.vue';
+import BtnIcon from './Button/BtnIcon.vue';
+import BtnLoading from './Button/BtnLoading.vue';
 export default {
     name: 'VueButton',
     components: {
-        Icon
+        BtnIcon,
+        BtnLoading,
     },
     props: {
         btnClass: {
@@ -59,7 +100,7 @@ export default {
         },
         text: {
             type: String,
-            default: ''
+            default: 'This is Button Text'
         },
         iconClass: {
             type: String,
@@ -67,7 +108,15 @@ export default {
         },
         icon: {
             type: String,
-            default: ''
+            default: '',
+        },
+        loadingClass: {
+            type: String,
+            default: '',
+        },
+        link: {
+            type: String,
+            default: '',
         }
     },
     computed: {
@@ -76,6 +125,18 @@ export default {
         },
         iconPositionLeft() {
             return this.iconPosition === 'left';
+        },
+        isButtonDefault() {
+            return !this.isDiv && !this.isLink;
+        },
+        isContentAvailable() {
+            return !this.isLoading && !this.$slots.default;
+        },
+        hasContentAndNotLoading() {
+            return this.$slots.default && !this.isLoading;
+        },
+        isLinkEnabled() {
+            return this.isLink && this.link
         },
     },
     methods: {
@@ -93,6 +154,9 @@ export default {
     outline: none;
     border: none;
     cursor: pointer;
+    white-space: nowrap;
+    padding: .75rem 1.5rem;
+    border-radius: 5px;
 }
 .btn-default {
     display: inline-flex;
@@ -100,6 +164,7 @@ export default {
 }
 .pointer-events-none {
     pointer-events: none;
+    cursor: not-allowed;
 }
 .btn-disabled {
     opacity: .4;
